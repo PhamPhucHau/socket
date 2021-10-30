@@ -5,7 +5,7 @@
 #include <netinet/in.h> 
 #include <string.h>
 #include <ctype.h>
-#define PORT 8080 
+#define PORT 3000 
 int main(int argc, char const *argv[]) 
 { 
     int server_fd, new_socket, valread; 
