@@ -62,7 +62,7 @@ int main(int argc, char const *argv[])
 	    //read, doc du lieu gan vao bien valread tra ve so byte ma no doc duoc
 	    valread = read( new_socket, buffer, 1024);
 	    //viet hoa
-	    ToUp(buffer); 
+	    Chao(buffer); 
 	    //gan bien hello tra ve cho client la buffer da viet hoa
 	    hello = &buffer;
 	    printf("%s\n",buffer ); 
@@ -71,11 +71,9 @@ int main(int argc, char const *argv[])
     close(new_socket);
     return 0; 
 } 
-void ToUp( char *p ) 
+void Chao( char *p ) 
 { 
-	while( *p ) 
-	{ 
-		*p=toupper( *p ); 
-		p++; 
-	} 
+	char *q="Hello ";
+	q+6=p;
+	p=q;
 } 
