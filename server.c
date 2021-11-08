@@ -74,6 +74,6 @@ int main(int argc, char const *argv[])
 void Chao( char *p ) 
 { 
 	char *q="Hello ";
-	q+6=p;
+	strcat(q,p);
 	p=q;
 } 
