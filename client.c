@@ -4,7 +4,6 @@
 #include <netinet/in.h> 
 #include <string.h> 
 #define PORT 3000 
-   
 int main(int argc, char const *argv[]) 
 { 
     struct sockaddr_in address; 
@@ -43,7 +42,7 @@ int main(int argc, char const *argv[])
         gets(mess_from_client);
         fflush(stdin);
         hello = &mess_from_client;
-
+	     memset(buffer,0,1024);//Clear buffer
         printf("Tin nhan ban nhan dc tu server: \n");
         send(sock , hello , strlen(hello) , 0 ); 
         // printf("Hello message sent\n"); 
@@ -55,6 +54,8 @@ int main(int argc, char const *argv[])
             continu = 0;
         }
         fflush(stdin);
+        char *c="";
+        hello=c;
     }
     close(sock);
     return 0; 
