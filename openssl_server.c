@@ -50,7 +50,7 @@ SSL_CTX *ctx = NULL;
 
 
 
-    method = SSLv23_client_method(); /* create new server-method instance */
+    method = SSLv23_server_method(); /* create new server-method instance */
     ctx = SSL_CTX_new(method);   /* create new context from method */
     if ( ctx == NULL )
     {
