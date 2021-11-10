@@ -11,7 +11,6 @@
 #include "openssl/err.h"
 
 #define FAIL    -1
-using namespace std;
 
 int OpenListener(int port)
 {   int sd;
@@ -156,7 +155,7 @@ SSL_library_init();
 
 portnum = strings[1];
 ctx = InitServerCTX();        /* initialize SSL */
-LoadCertificates(ctx, "/home/stud/kawsar/mycert.pem", "/home/stud/kawsar/mycert.pem");  /* load certs */
+LoadCertificates(ctx, "/home/hau19521485/cert.pem", "/home/hau19521485/key.pem");  /* load certs */
 server = OpenListener(atoi(portnum));    /* create server socket */
 while (1)
 {   struct sockaddr_in addr;
