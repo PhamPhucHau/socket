@@ -42,7 +42,7 @@ SSL_CTX *ctx;
 
 OpenSSL_add_all_algorithms();  /* Load cryptos, et.al. */
 SSL_load_error_strings();   /* Bring in and register error messages */
-method = SSLv2_method();  /* Create new client-method instance */
+method = SSLv23_client_method();  /* Create new client-method instance */
 ctx = SSL_CTX_new(method);   /* Create new context */
 if ( ctx == NULL )
 {
@@ -77,7 +77,8 @@ int main(int count, char *strings[])
 {   SSL_CTX *ctx;
 int server;
 SSL *ssl;
-char buf[1024];
+char buffer[1024];
+char *hello = "Hello from client";
 int bytes;
 char *hostname, *portnum;
 
@@ -95,21 +96,27 @@ portnum=strings[2];
 ctx = InitCTX();
 server = OpenConnection(hostname, atoi(portnum));
 ssl = SSL_new(ctx);      /* create new SSL connection state */
-SSL_set_fd(ssl, server);    /* attach the socket descriptor */
-if ( SSL_connect(ssl) == FAIL )   /* perform the connection */
-{
+int c=SSL_set_fd(ssl, server);    /* attach the socket descriptor */
+printf("Gia tri c:%d",c);
+if ( SSL_connect(ssl) == (-1))   /* perform the connection */
+{ 
+    printf("Loi conection\n");
     printf('Eroor: %s\n',stderr);
     ERR_print_errors_fp(stderr);
 }
 else
-{   char *msg = "Hello???";
-
+{   	char mess_from_client[225];
+        printf("Nhap noi dung tin nhan gui den server\n");
+        gets(mess_from_client);
+        fflush(stdin);
+        hello = &mess_from_client;
+	     memset(buffer,0,1024);//Clear buffer
     printf("Connected with %s encryption\n", SSL_get_cipher(ssl));
     ShowCerts(ssl);        /* get any certs */
-    SSL_write(ssl, msg, strlen(msg));   /* encrypt & send message */
-    bytes = SSL_read(ssl, buf, sizeof(buf)); /* get reply & decrypt */
-    buf[bytes] = 0;
-    printf("Received: \"%s\"\n", buf);
+    SSL_write(ssl, mess_from_client, strlen(mess_from_client));   /* encrypt & send message */
+    bytes = SSL_read(ssl, buffer, sizeof(buffer)); /* get reply & decrypt */
+    buffer[bytes] = 0;
+    printf("Received: \"%s\"\n", buffer);
     SSL_free(ssl);        /* release connection state */
 }
 close(server);         /* close socket */
