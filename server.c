@@ -6,6 +6,34 @@
 #include <string.h>
 #include <ctype.h>
 #define PORT 3000 
+
+void Chao( char *p ) 
+{ 
+	int c1=strlen(p);
+	
+	char q[]="Hello ";
+	char *t;
+	strcpy(t,p);
+	
+	for(int i=0;i<c1+7;i++)
+	{
+		if(i<6)
+		{
+			*p=q[i];
+			
+			p++;
+		}
+		if(i>5)
+		{
+			
+			*p=*(t+(i-6));
+			
+			p++;
+			
+		}
+	
+		}
+} 
 int main(int argc, char const *argv[]) 
 { 
     int server_fd, new_socket, valread; 
@@ -61,11 +89,11 @@ int main(int argc, char const *argv[])
 	    printf("Tin nhan ban nhan dc tu client: \n");
 	    //read, doc du lieu gan vao bien valread tra ve so byte ma no doc duoc
 	    valread = read( new_socket, buffer, 1024);
-	   
+	   printf("\n%d\n",valread);
 	    //Dap lai loi chao
 	    Chao(buffer); 
 	    //gan bien hello tra ve cho client la buffer da viet hoa
-	    hello = &buffer;
+	    hello = buffer;
 	    printf("%s\n",buffer ); 
 	    send(new_socket, hello, strlen(hello), 0 ); 
 	    memset(buffer,0,1024);//Clear buffer
@@ -77,31 +105,4 @@ int main(int argc, char const *argv[])
     }
     close(new_socket);
     return 0; 
-} 
-void Chao( char *p ) 
-{ 
-	int c1=strlen(p);
-	
-	char q[]="Hello ";
-	char *t;
-	strcpy(t,p);
-	
-	for(int i=0;i<c1+7;i++)
-	{
-		if(i<6)
-		{
-			*p=q[i];
-			
-			p++;
-		}
-		if(i>5)
-		{
-			
-			*p=*(t+(i-6));
-			
-			p++;
-			
-		}
-	
-		}
 } 
