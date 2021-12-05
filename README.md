@@ -14,3 +14,4 @@
 # 1.2. Truyền dữ liệu sử dụng TLS
 - File: openssl_server.c : Dùng để chạy trên Ubuntu Server, Khi chạy cần điền vào số port cần mở  ,blind, listen và xử lý các thông điệp từ client là Hello+ thông điệp.
 - File: openssl_Client.c: Dùng để chạy trên máy Ubuntu Desktop, khi chạy file thì điền ip của máy client và port cần mở khi có thông báo nhập và nhập thông điệp cần gửi.
+- Khi biên dịch cần gắn cờ -L/usr/local/ssl/lib -lssl -lcrypto để có thể sử dụng được các thư viện của open ssl.
